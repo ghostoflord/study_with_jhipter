@@ -170,5 +170,7 @@ public class User {
                 + gender + ", activationKey=" + activationKey + ", activated=" + activated + ", refreshToken="
                 + refreshToken + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy
                 + ", updatedBy=" + updatedBy + "]";
+
+                
     }
 }

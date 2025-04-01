@@ -33,6 +33,7 @@ public class SercurityConfig {
                 .formLogin(f -> f.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+                
         return http.build();
     }
 }

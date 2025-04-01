@@ -29,5 +29,7 @@ public class AuthenticationController {
         user.setEmail(accountDto.getEmail());
         userRepository.save(user);
         return user;
+
+        
     }
 }
