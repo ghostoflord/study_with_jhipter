@@ -1,5 +1,7 @@
 package com.jhipter.study.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.jhipter.study.domain.User;
@@ -17,5 +19,13 @@ public class UserService {
     public User save(User user) {
         return this.userRepository.save(user);
     }
-    
+
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
+    }
+
+    public List<User> getListUser() {
+        return this.userRepository.findAll();
+    }
+
 }

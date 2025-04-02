@@ -21,7 +21,8 @@ public class SercurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         String[] whiteList = {
                 "/",
-                "/auth/register"
+                "/auth/register",
+                "/api/v1/users/**"
         };
 
         http
@@ -33,7 +34,6 @@ public class SercurityConfig {
                 .formLogin(f -> f.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-                
         return http.build();
     }
 }
