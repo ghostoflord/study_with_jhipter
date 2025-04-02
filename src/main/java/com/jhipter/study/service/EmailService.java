@@ -1,14 +1,15 @@
 package com.jhipter.study.service;
 
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
+@Service
 public class EmailService {
 
     private final JavaMailSender mailSender;
@@ -19,12 +20,20 @@ public class EmailService {
         this.templateEngine = templateEngine;
     }
 
-    public void sendEmail(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        mailSender.send(message);
+    public void sendEmail(String to, String subject, String template, Context context) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+        // Process the template with the given context
+        String htmlContent = templateEngine.process(template, context);
+
+        // Set email properties
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true); // Set true for HTML content
+
+        // Send the email
+        mailSender.send(mimeMessage);
     }
 
     public void sendEmailWithHtmlTemplate(String to, String subject, String templateName, Context context) {
@@ -39,7 +48,7 @@ public class EmailService {
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             // Handle exception
-            
+
         }
     }
 }

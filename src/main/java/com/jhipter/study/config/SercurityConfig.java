@@ -22,7 +22,8 @@ public class SercurityConfig {
         String[] whiteList = {
                 "/",
                 "/auth/register",
-                "/api/v1/users/**"
+                "/api/v1/users/**",
+                "/api/v1/email/**"
         };
 
         http
