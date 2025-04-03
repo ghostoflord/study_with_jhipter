@@ -1,15 +1,22 @@
 package com.jhipter.study.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jhipter.study.domain.User;
 import com.jhipter.study.service.EmailService;
@@ -44,6 +51,23 @@ public class UserController {
             emailService.sendPasswordResetMail(user.orElseThrow());
         } else {
         }
+    }
+
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
+
+    @GetMapping("users/uploadimage")
+    public String displayUploadForm() {
+        return "imageupload/index";
+    }
+
+    @PostMapping("users/upload")
+    public String uploadImage(Model model, @RequestParam("image") MultipartFile file) throws IOException {
+        StringBuilder fileNames = new StringBuilder();
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileNames.append(file.getOriginalFilename());
+        Files.write(fileNameAndPath, file.getBytes());
+        model.addAttribute("msg", "Uploaded images: " + fileNames.toString());
+        return "imageupload/index";
     }
 
 }
