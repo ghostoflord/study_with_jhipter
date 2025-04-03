@@ -32,4 +32,7 @@ public class EmailController {
             return "Error sending email: " + e.getMessage();
         }
     }
+
+
+    
 }

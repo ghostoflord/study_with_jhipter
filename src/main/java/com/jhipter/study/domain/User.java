@@ -15,12 +15,16 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A user.
  */
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +70,15 @@ public class User {
 
     @Column(name = "update_by")
     private String updatedBy;
+
+    @Size(max = 20)
+    @Column(name = "reset_key", length = 20)
+    @JsonIgnore
+    private String resetKey;
+
+    @Size(min = 2, max = 10)
+    @Column(name = "lang_key", length = 10)
+    private String langKey;
 
     public Long getId() {
         return id;
@@ -171,6 +184,5 @@ public class User {
                 + refreshToken + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy
                 + ", updatedBy=" + updatedBy + "]";
 
-                
     }
 }
