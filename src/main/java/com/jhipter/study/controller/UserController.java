@@ -53,21 +53,24 @@ public class UserController {
         }
     }
 
-    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
+    // public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") +
+    // "/uploads";
 
-    @GetMapping("users/uploadimage")
-    public String displayUploadForm() {
-        return "imageupload/index";
-    }
+    // @GetMapping("users/uploadimage")
+    // public String displayUploadForm() {
+    // return "imageupload/index";
+    // }
 
-    @PostMapping("users/upload")
-    public String uploadImage(Model model, @RequestParam("image") MultipartFile file) throws IOException {
-        StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileNames.append(file.getOriginalFilename());
-        Files.write(fileNameAndPath, file.getBytes());
-        model.addAttribute("msg", "Uploaded images: " + fileNames.toString());
-        return "imageupload/index";
-    }
+    // @PostMapping("users/upload")
+    // public String uploadImage(Model model, @RequestParam("image") MultipartFile
+    // file) throws IOException {
+    // StringBuilder fileNames = new StringBuilder();
+    // Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY,
+    // file.getOriginalFilename());
+    // fileNames.append(file.getOriginalFilename());
+    // Files.write(fileNameAndPath, file.getBytes());
+    // model.addAttribute("msg", "Uploaded images: " + fileNames.toString());
+    // return "imageupload/index";
+    // }
 
 }

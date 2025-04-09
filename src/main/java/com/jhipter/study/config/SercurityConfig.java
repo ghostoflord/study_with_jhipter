@@ -33,6 +33,9 @@ public class SercurityConfig {
                                 .requestMatchers(whiteList).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(f -> f.disable())
+                .oauth2Login(config -> {
+                })
+                .logout(config -> config.logoutSuccessUrl("/"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
